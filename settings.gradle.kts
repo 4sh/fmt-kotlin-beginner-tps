@@ -9,3 +9,4 @@ plugins {
 rootProject.name = "fmt-kotlin-beginner-tps"
 
 include("tp0")
+include("tp1")
