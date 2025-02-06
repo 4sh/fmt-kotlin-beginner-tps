@@ -5,25 +5,29 @@ class Tp1 {
     var x = 0
 
     fun incrementXAndReturnOldValue(): Int {
-        return -1;
+        return x++;
     }
 
     fun incrementXAndReturnNewValue(): Int {
-        return -1;
+        return ++x;
     }
 
     fun sum(m: Int, n: Int): Int {
-        return -1
+        return m + n
     }
 
     /**
      * n Number of bottles. Always more than 2.
      */
     fun describeNbBottles(n: Int): String {
-        return "";
+        return "There are $n bottles";
     }
 
     fun describeWithDetailNbBottles(totalBottles: Int, nbWhiteBottles: Int, nbRedBottles: Int): String {
-        return ""
+        return """
+            There are $totalBottles bottles :
+                - $nbWhiteBottles bottles of white
+                - $nbRedBottles bottles of red
+        """.trimIndent()
     }
 }
