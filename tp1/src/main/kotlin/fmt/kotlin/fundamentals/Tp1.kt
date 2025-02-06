@@ -3,34 +3,34 @@ package fmt.kotlin.fundamentals
 var x = 0
 
 fun incrementXAndReturnOldValue(): Int {
-    return -1
+    return x++
 }
 
 fun incrementXAndReturnNewValue(): Int {
-    return -1
+    return ++x
 }
 
 fun sumZeroPointFive(): Float {
-    return -1f
+    return x + 0.5f
 }
 
 fun subtractBigNumber(): Int {
-    return -1
+    return x - 1_854_643
 }
 
 fun buildRangeOpen(): IntRange {
-    return 0..0
+    return 1..42
 }
 
 fun buildRangeOpenEnded(): IntRange {
-    return 0..0
+    return 1..<42
 }
 
 /**
  * n Number of bottles. Always more than 2.
  */
 fun describeNbBottles(): String {
-    return ""
+    return "There are $x bottles"
 }
 
 var totalBottles = 0
@@ -38,5 +38,9 @@ var nbWhiteBottles = 0
 var nbRedBottles = 0
 
 fun describeWithDetailNbBottles(): String {
-    return ""
+    return """
+            There are $totalBottles bottles :
+                - $nbWhiteBottles bottles of white
+                - $nbRedBottles bottles of red
+        """.trimIndent()
 }
