@@ -3,6 +3,8 @@ package fmt.kotlin.fundamentals
 class Cellar(
     private val barrels: MutableList<Barrel>
 ) {
+    constructor(nbBarrels: Int): this(generateBarrels(nbBarrels))
+
     val totalBarrels: Int
         get() = barrels.size
 
