@@ -3,6 +3,7 @@ package fmt.kotlin.fundamentals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
+import strikt.api.expectThrows
 import strikt.assertions.isEqualTo
 
 class CellarTest {
@@ -73,6 +74,13 @@ class CellarTest {
 
             expectThat(cellar) {
                 get { totalBarrels }.isEqualTo(80)
+            }
+        }
+
+        @Test
+        fun `should not have a negative number of barrels`() {
+            expectThrows<IllegalArgumentException> {
+                Cellar(-5)
             }
         }
     }
