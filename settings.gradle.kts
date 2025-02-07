@@ -11,3 +11,4 @@ rootProject.name = "fmt-kotlin-beginner-tps"
 include("tp0")
 include("tp1")
 include("tp2")
+include("tp3")
