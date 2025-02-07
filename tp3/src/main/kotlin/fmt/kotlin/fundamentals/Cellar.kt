@@ -3,7 +3,11 @@ package fmt.kotlin.fundamentals
 class Cellar(
     private val barrels: MutableList<Barrel>
 ) {
-    constructor(nbBarrels: Int): this(generateBarrels(nbBarrels))
+    constructor(nbBarrels: Int): this(generateBarrels(nbBarrels)) {
+        if (nbBarrels < 1) {
+            throw IllegalArgumentException()
+        }
+    }
 
     val totalBarrels: Int
         get() = barrels.size
