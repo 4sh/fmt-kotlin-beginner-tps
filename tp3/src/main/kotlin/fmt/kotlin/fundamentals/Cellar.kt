@@ -3,12 +3,17 @@ package fmt.kotlin.fundamentals
 class Cellar(
     private val barrels: MutableList<Barrel>
 ) {
-    val totalBarrels: Int = 0
+    val totalBarrels: Int
+        get() = barrels.size
 
     fun addBarrels(nb: Int) {
+        barrels.addAll(generateBarrels(nb))
     }
 
     fun removeBarrels(nb: Int) {
+        for (i in 1..nb) {
+            barrels.remove(barrels.last())
+        }
     }
 }
 
