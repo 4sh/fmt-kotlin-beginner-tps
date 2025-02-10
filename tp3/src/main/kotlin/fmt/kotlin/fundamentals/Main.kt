@@ -11,7 +11,7 @@ fun main() {
     val barrel3 = WineBarrel(642)
     val barrel4 = WineBarrel(522)
     val barrel5 = WineBarrel(58)
-    barrel5.age(4)
+//    barrel5.age(4)
 
     val barrel6 = WineBarrel(100, barrel5)
 
@@ -31,8 +31,8 @@ fun main() {
     println(barrel5.description())
 
     val bottle = Bottle(1)
-    val wineBottle = WineBottle(
-        "RED",
-        bottle
-    )
+//    val wineBottle = WineBottle(
+//        "RED",
+//        bottle
+//    )
 }
