@@ -6,6 +6,7 @@ import strikt.api.expectCatching
 import strikt.api.expectThat
 import strikt.api.expectThrows
 import strikt.assertions.isA
+import strikt.assertions.isEmpty
 import strikt.assertions.isEqualTo
 import strikt.assertions.isFailure
 import strikt.assertions.isSuccess
@@ -22,7 +23,7 @@ class ContainerTest {
 
         @Test
         fun `Tank should be a Container`() {
-            expectThat(Tank(3000000)).isA<Container>()
+            expectThat(Tank(3000000, emptyList())).isA<Container>()
         }
     }
 
@@ -53,21 +54,21 @@ class ContainerTest {
         @Test
         fun `Tank should be created with 3000000 cL`() {
             expectCatching {
-                Tank(3000000)
+                Tank(3000000, emptyList())
             }.isSuccess()
         }
 
         @Test
         fun `Tank should not be created with 1800000 cL`() {
             expectCatching {
-                Tank(1800000)
+                Tank(1800000, emptyList())
             }.isFailure()
         }
 
         @Test
         fun `Tank should not be created with 12000000 cL`() {
             expectCatching {
-                Tank(12000000)
+                Tank(12000000, emptyList())
             }.isFailure()
         }
     }
@@ -100,14 +101,14 @@ class ContainerTest {
         @Test
         fun `should not be able to pour Tank in Tank`() {
             expectThrows<IllegalArgumentException> {
-                Tank(3000000).containersNeededToPourIn(Tank(3000000))
+                Tank(3000000, emptyList()).containersNeededToPourIn(Tank(3000000, emptyList()))
             }
         }
 
         @Test
         fun `should be able to pour Tank in Barrel`() {
             expectCatching {
-                Tank(3000000).containersNeededToPourIn(Barrel(20000))
+                Tank(3000000, emptyList()).containersNeededToPourIn(Barrel(20000))
             }.isSuccess()
                 .isEqualTo(150)
         }
@@ -115,7 +116,7 @@ class ContainerTest {
         @Test
         fun `should be able to pour Tank in Magnum`() {
             expectCatching {
-                Tank(3000000).containersNeededToPourIn(Magnum())
+                Tank(3000000, emptyList()).containersNeededToPourIn(Magnum())
             }.isSuccess()
                 .isEqualTo(20000)
         }
@@ -123,7 +124,7 @@ class ContainerTest {
         @Test
         fun `should be able to pour Tank in Bottle`() {
             expectCatching {
-                Tank(3000000).containersNeededToPourIn(Bottle())
+                Tank(3000000, emptyList()).containersNeededToPourIn(Bottle())
             }.isSuccess()
                 .isEqualTo(40000)
         }
@@ -131,7 +132,7 @@ class ContainerTest {
         @Test
         fun `should not be able to pour Barrel in Tank`() {
             expectThrows<IllegalArgumentException> {
-                Barrel(20000).containersNeededToPourIn(Tank(3000000))
+                Barrel(20000).containersNeededToPourIn(Tank(3000000, emptyList()))
             }
         }
 
@@ -161,7 +162,7 @@ class ContainerTest {
         @Test
         fun `should not be able to pour Magnum in Tank`() {
             expectThrows<IllegalArgumentException> {
-                Magnum().containersNeededToPourIn(Tank(3000000))
+                Magnum().containersNeededToPourIn(Tank(3000000, emptyList()))
             }
         }
 
@@ -189,7 +190,7 @@ class ContainerTest {
         @Test
         fun `should not be able to pour Bottle in Tank`() {
             expectThrows<IllegalArgumentException> {
-                Bottle().containersNeededToPourIn(Tank(3000000))
+                Bottle().containersNeededToPourIn(Tank(3000000, emptyList()))
             }
         }
 
@@ -211,6 +212,38 @@ class ContainerTest {
         fun `should be able to pour Bottle in Bottle`() {
             expectThrows<IllegalArgumentException> {
                 Bottle().containersNeededToPourIn(Bottle())
+            }
+        }
+    }
+
+    @Nested
+    inner class Equipments {
+
+        @Test
+        fun `Tank equipments should be what I set it to`() {
+            expectThat(Tank(3000000, listOf("Porte", "Contrôle de température", "Dégustateur"))) {
+                get { equipments }.isEqualTo(listOf("Porte", "Contrôle de température", "Dégustateur"))
+            }
+        }
+
+        @Test
+        fun `Barrel equipments should be Robinet, Bonde`() {
+            expectThat(Barrel(22500)) {
+                get { equipments }.isEqualTo(listOf("Robinet", "Bonde"))
+            }
+        }
+
+        @Test
+        fun `Magnum should not have equipments`() {
+            expectThat(Magnum()) {
+                get { equipments }.isEmpty()
+            }
+        }
+
+        @Test
+        fun `Bottle should not have equipments`() {
+            expectThat(Bottle()) {
+                get { equipments }.isEmpty()
             }
         }
     }
