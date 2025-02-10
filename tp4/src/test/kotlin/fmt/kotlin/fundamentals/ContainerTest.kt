@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 import strikt.api.expectCatching
 import strikt.api.expectThat
 import strikt.assertions.isA
+import strikt.assertions.isEqualTo
 import strikt.assertions.isFailure
 import strikt.assertions.isSuccess
 
@@ -67,6 +68,28 @@ class ContainerTest {
             expectCatching {
                 Tank(12000000)
             }.isFailure()
+        }
+    }
+
+    @Nested
+    inner class FixedVolume {
+
+        @Test
+        fun `Magnum should have a fixed size of 150 cL`() {
+            expectThat(Magnum()) {
+                isA<FixedVolumeContainer>()
+                isA<Container>()
+                get { capacity }.isEqualTo(150)
+            }
+        }
+
+        @Test
+        fun `Bottle should have a fixed size of 75 cL`() {
+            expectThat(Bottle()) {
+                isA<FixedVolumeContainer>()
+                isA<Container>()
+                get { capacity }.isEqualTo(75)
+            }
         }
     }
 }
