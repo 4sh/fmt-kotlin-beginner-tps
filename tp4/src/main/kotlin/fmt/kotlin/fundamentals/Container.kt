@@ -10,6 +10,8 @@ sealed class Container(
         }
     }
 
+    val equipments: List<String> = emptyList()
+
     fun containersNeededToPourIn(container: Container) = when (this) {
         is Tank -> when (container) {
             is Barrel, is FixedVolumeContainer -> capacity / container.capacity
