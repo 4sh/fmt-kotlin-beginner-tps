@@ -10,6 +10,8 @@ sealed class Container(
         }
     }
 
+    val equipments: List<String> = emptyList()
+
     open fun containersNeededToPourIn(container: Container) = capacity / container.capacity
 }
 
