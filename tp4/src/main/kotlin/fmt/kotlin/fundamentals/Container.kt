@@ -5,6 +5,8 @@ abstract class Container(
     possibleCapacities: IntRange
 ) {
     val valid = (possibleCapacities).contains(capacity)
+
+    fun containersNeededToPourIn(container: Container) = -1
 }
 
 class Barrel(
