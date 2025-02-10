@@ -14,3 +14,8 @@ class Barrel(
 class Tank(
     capacity: Int
 ) : Container(capacity, 2000000..10000000)
+
+abstract class FixedVolumeContainer(capacity: Int) : Container(capacity, capacity..capacity)
+
+class Magnum : FixedVolumeContainer(150)
+class Bottle : FixedVolumeContainer(75)
