@@ -1,13 +1,16 @@
 package fmt.kotlin.fundamentals
 
-interface Container {
-    val capacity: Int
+abstract class Container(
+    val capacity: Int,
+    possibleCapacities: IntRange
+) {
+    val valid = (possibleCapacities).contains(capacity)
 }
 
 class Barrel(
-    override val capacity: Int
-) : Container
+    capacity: Int
+) : Container(capacity, 20000..40000)
 
 class Tank(
-    override val capacity: Int
-) : Container
+    capacity: Int
+) : Container(capacity, 2000000..10000000)
