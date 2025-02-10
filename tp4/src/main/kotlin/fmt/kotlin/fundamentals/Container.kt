@@ -9,6 +9,8 @@ abstract class Container(
             throw IllegalArgumentException()
         }
     }
+
+    fun containersNeededToPourIn(container: Container)  = -1
 }
 
 class Barrel(
