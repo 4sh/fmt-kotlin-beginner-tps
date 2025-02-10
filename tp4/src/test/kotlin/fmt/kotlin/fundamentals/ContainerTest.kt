@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import strikt.api.expectCatching
 import strikt.api.expectThat
+import strikt.api.expectThrows
 import strikt.assertions.isA
 import strikt.assertions.isEqualTo
 import strikt.assertions.isFailure
@@ -89,6 +90,127 @@ class ContainerTest {
                 isA<FixedVolumeContainer>()
                 isA<Container>()
                 get { capacity }.isEqualTo(75)
+            }
+        }
+    }
+
+    @Nested
+    inner class ContainersNeededToPourIn {
+
+        @Test
+        fun `should not be able to pour Tank in Tank`() {
+            expectThrows<IllegalArgumentException> {
+                Tank(3000000).containersNeededToPourIn(Tank(3000000))
+            }
+        }
+
+        @Test
+        fun `should be able to pour Tank in Barrel`() {
+            expectCatching {
+                Tank(3000000).containersNeededToPourIn(Barrel(20000))
+            }.isSuccess()
+                .isEqualTo(150)
+        }
+
+        @Test
+        fun `should be able to pour Tank in Magnum`() {
+            expectCatching {
+                Tank(3000000).containersNeededToPourIn(Magnum())
+            }.isSuccess()
+                .isEqualTo(20000)
+        }
+
+        @Test
+        fun `should be able to pour Tank in Bottle`() {
+            expectCatching {
+                Tank(3000000).containersNeededToPourIn(Bottle())
+            }.isSuccess()
+                .isEqualTo(40000)
+        }
+
+        @Test
+        fun `should not be able to pour Barrel in Tank`() {
+            expectThrows<IllegalArgumentException> {
+                Barrel(20000).containersNeededToPourIn(Tank(3000000))
+            }
+        }
+
+        @Test
+        fun `should not be able to pour Barrel in Barrel`() {
+            expectThrows<IllegalArgumentException> {
+                Barrel(20000).containersNeededToPourIn(Barrel(20000))
+            }
+        }
+
+        @Test
+        fun `should be able to pour Barrel in Magnum`() {
+            expectCatching {
+                Barrel(22500).containersNeededToPourIn(Magnum())
+            }.isSuccess()
+                .isEqualTo(150)
+        }
+
+        @Test
+        fun `should be able to pour Barrel in Bottle`() {
+            expectCatching {
+                Barrel(22500).containersNeededToPourIn(Bottle())
+            }.isSuccess()
+                .isEqualTo(300)
+        }
+
+        @Test
+        fun `should not be able to pour Magnum in Tank`() {
+            expectThrows<IllegalArgumentException> {
+                Magnum().containersNeededToPourIn(Tank(3000000))
+            }
+        }
+
+        @Test
+        fun `should not be able to pour Magnum in Barrel`() {
+            expectThrows<IllegalArgumentException> {
+                Magnum().containersNeededToPourIn(Barrel(20000))
+            }
+        }
+
+        @Test
+        fun `should be able to pour Magnum in Magnum`() {
+            expectThrows<IllegalArgumentException> {
+                Magnum().containersNeededToPourIn(Magnum())
+            }
+        }
+
+        @Test
+        fun `should be able to pour Magnum in Bottle`() {
+            expectThrows<IllegalArgumentException> {
+                Magnum().containersNeededToPourIn(Bottle())
+            }
+        }
+
+        @Test
+        fun `should not be able to pour Bottle in Tank`() {
+            expectThrows<IllegalArgumentException> {
+                Bottle().containersNeededToPourIn(Tank(3000000))
+            }
+        }
+
+        @Test
+        fun `should not be able to pour Bottle in Barrel`() {
+            expectThrows<IllegalArgumentException> {
+                Bottle().containersNeededToPourIn(Barrel(20000))
+            }
+        }
+
+        @Test
+        fun `should be able to pour Bottle in Magnum`() {
+            expectThrows<IllegalArgumentException> {
+                Bottle().containersNeededToPourIn(Magnum())
+            }
+        }
+
+        @Test
+        fun `should be able to pour Bottle in Bottle`() {
+            expectThrows<IllegalArgumentException> {
+                Bottle().containersNeededToPourIn(Bottle())
             }
         }
     }
