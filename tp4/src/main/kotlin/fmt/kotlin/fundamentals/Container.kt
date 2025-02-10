@@ -4,6 +4,10 @@ interface Container {
     val capacity: Int
 }
 
-class Barrel
+class Barrel(
+    override val capacity: Int
+) : Container
 
-class Tank
+class Tank(
+    override val capacity: Int
+) : Container
