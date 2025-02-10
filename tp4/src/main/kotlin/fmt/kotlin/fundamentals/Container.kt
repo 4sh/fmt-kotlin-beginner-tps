@@ -6,7 +6,7 @@ sealed class Container(
 ) {
     val valid = (possibleCapacities).contains(capacity)
 
-    val equipments: List<String> = emptyList()
+    open val equipments: List<String> = emptyList()
 
     open fun containersNeededToPourIn(container: Container) = capacity / container.capacity
 }
@@ -15,6 +15,8 @@ class Barrel(
     capacity: Int
 ) : Container(capacity, 20000..40000) {
 
+    override val equipments = listOf("Robinet", "Bonde")
+
     override fun containersNeededToPourIn(container: Container) = when (container) {
         is Barrel, is Tank -> -1
         else -> super.containersNeededToPourIn(container)
@@ -22,7 +24,8 @@ class Barrel(
 }
 
 class Tank(
-    capacity: Int
+    capacity: Int,
+    override val equipments: List<String>
 ) : Container(capacity, 2000000..10000000) {
 
     override fun containersNeededToPourIn(container: Container) = if (container is Tank) {
