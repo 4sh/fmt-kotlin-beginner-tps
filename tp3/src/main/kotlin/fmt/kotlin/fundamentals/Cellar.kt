@@ -28,7 +28,7 @@ class Cellar private constructor(
 
     fun age(monthsNumber: Int) {
         for (wineBarrel in wineBarrels) {
-            wineBarrel.age(monthsNumber)
+//            wineBarrel.age(monthsNumber)
         }
     }
 
