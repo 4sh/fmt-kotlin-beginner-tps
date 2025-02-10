@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
 import strikt.assertions.isA
+import strikt.assertions.isEmpty
 import strikt.assertions.isEqualTo
 import strikt.assertions.isFalse
 import strikt.assertions.isTrue
@@ -20,7 +21,7 @@ class ContainerTest {
 
         @Test
         fun `Tank should be a Container`() {
-            expectThat(Tank(3000000)).isA<Container>()
+            expectThat(Tank(3000000, emptyList())).isA<Container>()
         }
     }
 
@@ -53,7 +54,7 @@ class ContainerTest {
 
         @Test
         fun `Tank should be created with 3000000 cL`() {
-            val container = Tank(3000000)
+            val container = Tank(3000000, emptyList())
             expectThat(container) {
                 get { valid }.isTrue()
             }
@@ -61,7 +62,7 @@ class ContainerTest {
 
         @Test
         fun `Tank should not be created with 1800000 cL`() {
-            val container = Tank(1800000)
+            val container = Tank(1800000, emptyList())
             expectThat(container) {
                 get { valid }.isFalse()
             }
@@ -69,7 +70,7 @@ class ContainerTest {
 
         @Test
         fun `Tank should not be created with 12000000 cL`() {
-            val container = Tank(12000000)
+            val container = Tank(12000000, emptyList())
             expectThat(container) {
                 get { valid }.isFalse()
             }
@@ -103,35 +104,35 @@ class ContainerTest {
 
         @Test
         fun `should not be able to pour Tank in Tank`() {
-            val containersNeeded = Tank(3000000).containersNeededToPourIn(Tank(3000000))
+            val containersNeeded = Tank(3000000, emptyList()).containersNeededToPourIn(Tank(3000000, emptyList()))
 
             expectThat(containersNeeded).isEqualTo(-1)
         }
 
         @Test
         fun `should be able to pour Tank in Barrel`() {
-            val containersNeeded = Tank(3000000).containersNeededToPourIn(Barrel(20000))
+            val containersNeeded = Tank(3000000, emptyList()).containersNeededToPourIn(Barrel(20000))
 
             expectThat(containersNeeded).isEqualTo(150)
         }
 
         @Test
         fun `should be able to pour Tank in Magnum`() {
-            val containersNeeded = Tank(3000000).containersNeededToPourIn(Magnum())
+            val containersNeeded = Tank(3000000, emptyList()).containersNeededToPourIn(Magnum())
 
             expectThat(containersNeeded).isEqualTo(20000)
         }
 
         @Test
         fun `should be able to pour Tank in Bottle`() {
-            val containersNeeded = Tank(3000000).containersNeededToPourIn(Bottle())
+            val containersNeeded = Tank(3000000, emptyList()).containersNeededToPourIn(Bottle())
 
             expectThat(containersNeeded).isEqualTo(40000)
         }
 
         @Test
         fun `should not be able to pour Barrel in Tank`() {
-            val containersNeeded = Barrel(20000).containersNeededToPourIn(Tank(3000000))
+            val containersNeeded = Barrel(20000).containersNeededToPourIn(Tank(3000000, emptyList()))
 
             expectThat(containersNeeded).isEqualTo(-1)
         }
@@ -159,7 +160,7 @@ class ContainerTest {
 
         @Test
         fun `should not be able to pour Magnum in Tank`() {
-            val containersNeeded = Magnum().containersNeededToPourIn(Tank(3000000))
+            val containersNeeded = Magnum().containersNeededToPourIn(Tank(3000000, emptyList()))
 
             expectThat(containersNeeded).isEqualTo(-1)
         }
@@ -187,7 +188,7 @@ class ContainerTest {
 
         @Test
         fun `should not be able to pour Bottle in Tank`() {
-            val containersNeeded = Bottle().containersNeededToPourIn(Tank(3000000))
+            val containersNeeded = Bottle().containersNeededToPourIn(Tank(3000000, emptyList()))
 
             expectThat(containersNeeded).isEqualTo(-1)
         }
@@ -211,6 +212,38 @@ class ContainerTest {
             val containersNeeded = Bottle().containersNeededToPourIn(Bottle())
 
             expectThat(containersNeeded).isEqualTo(-1)
+        }
+    }
+
+    @Nested
+    inner class Equipments {
+
+        @Test
+        fun `Tank equipments should be what I set it to`() {
+            expectThat(Tank(3000000, listOf("Porte", "Contrôle de température", "Dégustateur"))) {
+                get { equipments }.isEqualTo(listOf("Porte", "Contrôle de température", "Dégustateur"))
+            }
+        }
+
+        @Test
+        fun `Barrel equipments should be Robinet, Bonde`() {
+            expectThat(Barrel(22500)) {
+                get { equipments }.isEqualTo(listOf("Robinet", "Bonde"))
+            }
+        }
+
+        @Test
+        fun `Magnum should not have equipments`() {
+            expectThat(Magnum()) {
+                get { equipments }.isEmpty()
+            }
+        }
+
+        @Test
+        fun `Bottle should not have equipments`() {
+            expectThat(Bottle()) {
+                get { equipments }.isEmpty()
+            }
         }
     }
 }

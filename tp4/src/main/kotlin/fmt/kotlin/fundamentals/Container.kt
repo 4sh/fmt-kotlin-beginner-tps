@@ -6,6 +6,8 @@ sealed class Container(
 ) {
     val valid = (possibleCapacities).contains(capacity)
 
+    val equipments: List<String> = emptyList()
+
     open fun containersNeededToPourIn(container: Container) = capacity / container.capacity
 }
 
