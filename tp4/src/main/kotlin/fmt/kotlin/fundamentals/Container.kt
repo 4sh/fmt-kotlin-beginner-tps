@@ -10,7 +10,7 @@ sealed class Container(
         }
     }
 
-    val equipments: List<String> = emptyList()
+    open val equipments: List<String> = emptyList()
 
     fun containersNeededToPourIn(container: Container) = when (this) {
         is Tank -> when (container) {
@@ -28,10 +28,13 @@ sealed class Container(
 
 class Barrel(
     capacity: Int
-) : Container(capacity, 20000..40000)
+) : Container(capacity, 20000..40000) {
+    override val equipments = listOf("Robinet", "Bonde")
+}
 
 class Tank(
-    capacity: Int
+    capacity: Int,
+    override val equipments: List<String>
 ) : Container(capacity, 2000000..10000000)
 
 sealed class FixedVolumeContainer(capacity: Int) : Container(capacity, capacity..capacity)
