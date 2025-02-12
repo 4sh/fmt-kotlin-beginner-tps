@@ -7,10 +7,14 @@ data class Bottle(
     override fun toString() = "Bouteille de $name de $year"
 }
 
-fun String.toBottle(): Bottle {
+fun String.toBottle() = try {
     val year = takeLast(4)
     val substringAfter = substringAfter("Bouteille de ")
     val name = substringAfter.substringBefore(" de $year")
 
-    return Bottle(name, year.toInt())
+    Bottle(name, year.toInt())
+} catch (e: NumberFormatException) {
+    null
+} finally {
+    println(this)
 }
