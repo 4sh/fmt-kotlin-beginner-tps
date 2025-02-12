@@ -6,6 +6,7 @@ import strikt.api.expectCatching
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import strikt.assertions.isFailure
+import strikt.assertions.isNull
 
 class BottleTest {
 
@@ -21,7 +22,9 @@ class BottleTest {
 
         @Test
         fun `should not parse Bouteille de Coucheroy wihtout year`() {
-            expectCatching { "Bouteille de Coucheroy".toBottle() }.isFailure()
+            val bottle = "Bouteille de Coucheroy".toBottle()
+
+            expectThat(bottle).isNull()
         }
     }
 }
