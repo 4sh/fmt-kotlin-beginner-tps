@@ -5,7 +5,18 @@ import jdk.internal.org.jline.utils.Colors.s
 data class Cellar(
     val bottles: List<Bottle>
 ) {
-    fun describeAll(): String = TODO()
+    fun describeAll() = callOnEveryBottle(Bottle::describe)
 
-    val years: String = TODO()
+    val years
+        get() = callOnEveryBottle {
+            it.year.toString()
+        }
+
+    private fun callOnEveryBottle(block: (Bottle) -> String): String {
+        var res = ""
+        for (bottle in bottles) {
+            res = res + "\n" + block(bottle)
+        }
+        return res
+    }
 }
