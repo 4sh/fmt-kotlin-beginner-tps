@@ -3,7 +3,8 @@ package fmt.kotlin.fundamentals
 import jdk.internal.org.jline.utils.Colors.s
 
 data class Cellar(
-    val bottles: List<Bottle>
+    val bottles: List<Bottle>,
+    val barrels: List<Barrel> = emptyList()
 ) {
     fun describeAll() = callOnEveryBottle(Bottle::describe)
 
