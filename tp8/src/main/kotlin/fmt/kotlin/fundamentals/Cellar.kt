@@ -4,7 +4,9 @@ data class Vineyard(
     val cellars: List<Cellar>
 ) {
 
-    fun countBottles() = emptyMap<String, Int>()
+    fun countBottles() = cellars.fold(emptyMap<String, Int>()) { res, cellar ->
+        res.merge(cellar.bottles.groupingBy { it.name }.eachCount()) { n, m -> n + m }
+    }
 }
 
 data class Cellar(
