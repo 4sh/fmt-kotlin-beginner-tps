@@ -8,4 +8,6 @@ data class Cellar(
             "Bouteille de ${name} de ${year}"
         }
     }
+
+    fun describeRedBottles() = ""
 }
