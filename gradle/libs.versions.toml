@@ -1,8 +1,10 @@
 [versions]
 junit = "5.10.1"
 strikt = "0.34.0"
+datetime = "0.6.2"
 
 [libraries]
 junit-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit"}
 junit-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junit"}
 strikt = { group = "io.strikt", name = "strikt-core", version.ref = "strikt" }
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "datetime" }
