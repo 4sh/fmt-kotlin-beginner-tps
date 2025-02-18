@@ -1,6 +1,5 @@
 package fmt.kotlin.fundamentals
 
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
@@ -8,14 +7,13 @@ import strikt.assertions.isEqualTo
 
 class Tp2Test {
 
-    private val tp2 = Tp2()
 
     @Nested
     inner class Prime {
 
         @Test
         fun `should return 100 first prime numbers`() {
-            val numbers = tp2.getFirstPrimeNumbers(100)
+            val numbers = getFirstPrimeNumbers(100)
 
             expectThat(numbers).isEqualTo(
                 listOf(
@@ -119,7 +117,7 @@ class Tp2Test {
                     521,
                     523,
                     541
-                )
+                ).map { "($it)" }.toString()
             )
         }
     }
