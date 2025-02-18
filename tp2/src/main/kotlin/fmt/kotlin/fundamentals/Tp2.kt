@@ -1,14 +1,14 @@
 package fmt.kotlin.fundamentals
 
 // guide
-// STEP 3
-// 1 : give main function with vararg usage, adapt declaration and code
+// STEP 4
+// 1 : add start concept and adapt main call to start from 42
 
 
 // method main
 // named parameter
 fun main() {
-    println(getFirstPrimeNumbersBatches(1, 2, 3))
+    println(getFirstPrimeNumbersBatches(1, 2, 3, start = 42))
 }
 
 // const
@@ -24,7 +24,7 @@ private const val suffix = "]"
 // fun
 // body function
 // when
-fun getFirstPrimeNumbersBatches(vararg nbToFindBatches: Int): String {
+fun getFirstPrimeNumbersBatches(vararg nbToFindBatches: Int, start: Int): String {
     var result = ""
     for (nbToFind in nbToFindBatches) {
         result +=
@@ -32,7 +32,7 @@ fun getFirstPrimeNumbersBatches(vararg nbToFindBatches: Int): String {
                 in Int.MIN_VALUE..MIN -> ERROR_MIN
                 in MAX..<Int.MAX_VALUE -> ERROR_MAX
                 else -> {
-                    computeFirstPrimeNumbers(nbToFind)
+                    computeFirstPrimeNumbers(start, nbToFind)
                 }
             }
         result += "\n"
@@ -40,14 +40,14 @@ fun getFirstPrimeNumbersBatches(vararg nbToFindBatches: Int): String {
     return result
 }
 
-private fun computeFirstPrimeNumbers(nbToFind: Int): String {
+private fun computeFirstPrimeNumbers(start: Int, nbToFind: Int): String {
     var current = 2
     var found = ""
     var nbFound = 0
 
     // while
     while (nbFound < nbToFind) {
-        if (isPrime(current)) {
+        if (isPrime(current) && current > start) {
             // concatenation
             // if else
             found += if (nbFound == 0) {
