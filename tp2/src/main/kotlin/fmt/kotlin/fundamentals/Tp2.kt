@@ -1,14 +1,14 @@
 package fmt.kotlin.fundamentals
 
 // guide
-// STEP 2
-// 1 : handle error case
-// 2 : version with subject and without subject
+// STEP 3
+// 1 : give main function with vararg usage, adapt declaration and code
 
 
 // method main
+// named parameter
 fun main() {
-    println(getFirstPrimeNumbers())
+    println(getFirstPrimeNumbersBatches(1, 2, 3))
 }
 
 // const
@@ -24,21 +24,20 @@ private const val suffix = "]"
 // fun
 // body function
 // when
-fun getFirstPrimeNumbers(nbToFind: Int = 10): String = when (nbToFind) {
-    in Int.MIN_VALUE..MIN -> ERROR_MIN
-    in MAX..<Int.MAX_VALUE -> ERROR_MAX
-    else -> {
-        computeFirstPrimeNumbers(nbToFind)
+fun getFirstPrimeNumbersBatches(vararg nbToFindBatches: Int): String {
+    var result = ""
+    for (nbToFind in nbToFindBatches) {
+        result +=
+            when (nbToFind) {
+                in Int.MIN_VALUE..MIN -> ERROR_MIN
+                in MAX..<Int.MAX_VALUE -> ERROR_MAX
+                else -> {
+                    computeFirstPrimeNumbers(nbToFind)
+                }
+            }
+        result += "\n"
     }
-}
-
-// version with when + subject
-fun getFirstPrimeNumbers2(nbToFind: Int = 10): String = when {
-    nbToFind < MIN -> ERROR_MIN
-    nbToFind > MAX -> ERROR_MAX
-    else -> {
-        computeFirstPrimeNumbers(nbToFind)
-    }
+    return result
 }
 
 private fun computeFirstPrimeNumbers(nbToFind: Int): String {
