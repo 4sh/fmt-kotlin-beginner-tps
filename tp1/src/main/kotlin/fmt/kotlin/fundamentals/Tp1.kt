@@ -1,29 +1,65 @@
 package fmt.kotlin.fundamentals
 
-class Tp1 {
+const val INIT = 42
 
-    var x = 0
+// not present
+// val/var
+var x: Int = 0
 
-    fun incrementXAndReturnOldValue(): Int {
-        return -1;
-    }
+// assignation
+fun initValue() {
+    x = INIT
+}
 
-    fun incrementXAndReturnNewValue(): Int {
-        return -1;
-    }
+fun incrementXAndReturnOldValue(): Int {
+    return x++;
+}
 
-    fun sum(m: Int, n: Int): Int {
-        return -1
-    }
+fun incrementXAndReturnNewValue(): Int {
+    return ++x;
+}
 
-    /**
-     * n Number of bottles. Always more than 2.
-     */
-    fun describeNbBottles(n: Int): String {
-        return "";
-    }
+// literal
+fun sumZeroPointFive(): Float {
+    return x + 0.5f
+}
 
-    fun describeWithDetailNbBottles(totalBottles: Int, nbWhiteBottles: Int, nbRedBottles: Int): String {
-        return ""
-    }
+// literal
+fun subtractBigNumber(): Int {
+    return x + 1_234_567
+}
+
+fun checkIfPositive(): Boolean {
+    return x > 0
+}
+
+fun checkIfRangeOpenEnded(): IntRange {
+    return 1..<42
+}
+
+fun checkIfRangeOpenClosed(): IntRange {
+    return 1..42
+}
+
+fun conversion(): Short {
+    return x.toShort()
+}
+
+fun shitright(): Int {
+    return x shr 1
+}
+
+/**
+ * n Number of bottles. Always more than 2.
+ */
+fun describeNbBottles(n: Int): String {
+    return "There are $n bottles for ${n * 10}\n"
+}
+
+fun describeWithDetailNbBottles(totalBottles: Int, nbWhiteBottles: Int, nbRedBottles: Int): String {
+    return """
+            There are $totalBottles bottles :
+                - $nbWhiteBottles bottles of white
+                - $nbRedBottles bottles of red
+        """.trimIndent()
 }
