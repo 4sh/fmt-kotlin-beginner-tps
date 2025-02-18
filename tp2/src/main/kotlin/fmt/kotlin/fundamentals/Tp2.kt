@@ -1,10 +1,10 @@
 package fmt.kotlin.fundamentals
 
 // guide
-// STEP 1
-// 1 : start from empty file, to write  a function from scratch, valid with runner(test)
-// 2: ask for number of functions :  check if use : while, for loop, more functions, body function, bonus : interpolation, range, inference, const...
-// 3 : write main function, without parameter (default parameter), valid with output comparison
+// STEP 2
+// 1 : handle error case
+// 2 : version with subject and without subject
+
 
 // method main
 fun main() {
@@ -12,6 +12,10 @@ fun main() {
 }
 
 // const
+private const val MIN = 0
+private const val MAX = 101
+private const val ERROR_MIN = "nbToFind must be > 0"
+private const val ERROR_MAX = "nbToFind must be > 101"
 private const val prefix = "["
 private const val separator = ", "
 private const val suffix = "]"
@@ -20,7 +24,24 @@ private const val suffix = "]"
 // fun
 // body function
 // when
-fun getFirstPrimeNumbers(nbToFind: Int = 10): String  {
+fun getFirstPrimeNumbers(nbToFind: Int = 10): String = when (nbToFind) {
+    in Int.MIN_VALUE..MIN -> ERROR_MIN
+    in MAX..<Int.MAX_VALUE -> ERROR_MAX
+    else -> {
+        computeFirstPrimeNumbers(nbToFind)
+    }
+}
+
+// version with when + subject
+fun getFirstPrimeNumbers2(nbToFind: Int = 10): String = when {
+    nbToFind < MIN -> ERROR_MIN
+    nbToFind > MAX -> ERROR_MAX
+    else -> {
+        computeFirstPrimeNumbers(nbToFind)
+    }
+}
+
+private fun computeFirstPrimeNumbers(nbToFind: Int): String {
     var current = 2
     var found = ""
     var nbFound = 0
