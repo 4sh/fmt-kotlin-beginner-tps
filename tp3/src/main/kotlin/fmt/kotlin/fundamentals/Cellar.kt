@@ -31,4 +31,20 @@ class Cellar private constructor(
             wineBarrel.age(monthsNumber)
         }
     }
+
+    fun description(): String {
+        var description = """
+            Nom de la cave : $cellarName
+            Nombre de barriques: ${wineBarrels.size}
+            Capacité totale en litres : $totalWineCapacityInLiters
+            Barriques de la cave : 
+            
+        """.trimIndent()
+
+        for(wineBarrel in wineBarrels) {
+            description += wineBarrel.description() + "\n"
+        }
+
+        return description
+    }
 }
