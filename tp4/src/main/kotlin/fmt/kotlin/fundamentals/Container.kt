@@ -6,29 +6,31 @@ sealed class Container(
 ) {
     val valid = (possibleCapacities).contains(capacity)
 
-    fun containersNeededToPourIn(container: Container) = when (this) {
-        is Tank -> when (container) {
-            is Barrel, is FixedVolumeContainer -> capacity / container.capacity
-            is Tank -> -1
-        }
-
-        is Barrel -> if (container is FixedVolumeContainer) {
-            capacity / container.capacity
-        } else -1
-
-        is FixedVolumeContainer -> -1
-    }
+    open fun containersNeededToPourIn(container: Container) = capacity / container.capacity
 }
 
 class Barrel(
     capacity: Int
-) : Container(capacity, 20000..40000)
+) : Container(capacity, 20000..40000) {
+
+    override fun containersNeededToPourIn(container: Container) = when (container) {
+        is Barrel, is Tank -> -1
+        else -> super.containersNeededToPourIn(container)
+    }
+}
 
 class Tank(
     capacity: Int
-) : Container(capacity, 2000000..10000000)
+) : Container(capacity, 2000000..10000000) {
 
-sealed class FixedVolumeContainer(capacity: Int) : Container(capacity, capacity..capacity)
+    override fun containersNeededToPourIn(container: Container) = if (container is Tank) {
+        -1
+    } else super.containersNeededToPourIn(container)
+}
+
+sealed class FixedVolumeContainer(capacity: Int) : Container(capacity, capacity..capacity) {
+    override fun containersNeededToPourIn(container: Container) = -1
+}
 
 class Magnum : FixedVolumeContainer(150)
 class Bottle : FixedVolumeContainer(75)
