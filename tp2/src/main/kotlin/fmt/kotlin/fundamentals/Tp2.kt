@@ -4,11 +4,22 @@ fun main() {
     println(getFirstPrimeNumbers())
 }
 
+private const val MIN = 0
+private const val MAX = 10000
+private const val ERROR_MIN = "nbToFind must be > 0"
+private const val ERROR_MAX = "nbToFind must be < 10000"
+
 private const val prefix = "["
 private const val separator = ", "
 private const val suffix = "]"
 
-fun getFirstPrimeNumbers(nbToFind: Int = 10): String {
+fun getFirstPrimeNumbers(nbToFind: Int = 10): String = when {
+    nbToFind <= MIN -> ERROR_MIN
+    nbToFind > MAX -> ERROR_MAX
+    else -> computeFirstPrimeNumbers(nbToFind)
+}
+
+private fun computeFirstPrimeNumbers(nbToFind: Int = 10): String {
     var current = 2
     var found = ""
     var nbFound = 0
