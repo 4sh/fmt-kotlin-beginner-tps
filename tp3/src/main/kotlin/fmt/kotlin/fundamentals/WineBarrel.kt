@@ -14,4 +14,17 @@ class WineBarrel private constructor(
         capacityInLiters,
         wineBarrel.wineAgeInMonths
     )
+
+    init {
+        if (capacityInLiters > 500) {
+            println("Warning: barrel is high, thus wine won't taste good")
+        }
+    }
+
+    fun description(): String {
+        return """
+            Capacité en litres: $capacityInLiters
+            Âge du vin : $wineAgeInMonths
+        """.trimIndent()
+    }
 }
