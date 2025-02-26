@@ -10,29 +10,33 @@ sealed class Container(
         }
     }
 
-    fun containersNeededToPourIn(container: Container) = when (this) {
-        is Tank -> when (container) {
-            is Barrel, is FixedVolumeContainer -> capacity / container.capacity
-            is Tank -> throw IllegalArgumentException()
-        }
-
-        is Barrel -> if (container is FixedVolumeContainer) {
-            capacity / container.capacity
-        } else throw IllegalArgumentException()
-
-        is FixedVolumeContainer -> throw IllegalArgumentException()
-    }
+    open fun containersNeededToPourIn(container: Container) = capacity / container.capacity
 }
 
 class Barrel(
     capacity: Int
-) : Container(capacity, 20000..40000)
+) : Container(capacity, 20000..40000) {
+
+    override fun containersNeededToPourIn(container: Container) = when (container) {
+        is Barrel, is Tank -> throw IllegalArgumentException()
+        else -> super.containersNeededToPourIn(container)
+    }
+}
 
 class Tank(
     capacity: Int
-) : Container(capacity, 2000000..10000000)
+) : Container(capacity, 2000000..10000000) {
 
-sealed class FixedVolumeContainer(capacity: Int) : Container(capacity, capacity..capacity)
+    override fun containersNeededToPourIn(container: Container) = if (container is Tank) {
+        throw IllegalArgumentException()
+    } else super.containersNeededToPourIn(container)
+}
+
+sealed class FixedVolumeContainer(capacity: Int) : Container(capacity, capacity..capacity) {
+    override fun containersNeededToPourIn(container: Container): Int {
+        throw IllegalArgumentException()
+    }
+}
 
 class Magnum : FixedVolumeContainer(150)
 class Bottle : FixedVolumeContainer(75)
