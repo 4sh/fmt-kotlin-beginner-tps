@@ -9,10 +9,21 @@ private const val prefix = "["
 private const val separator = ", "
 private const val suffix = "]"
 
-fun getFirstPrimeNumbers(nbToFind: Int = 10): String = when {
-    nbToFind <= MIN -> ERROR_MIN
-    nbToFind > MAX -> ERROR_MAX
-    else -> computeFirstPrimeNumbers(nbToFind)
+fun getFirstPrimeNumbers(vararg nbToFindBatches: Int): String {
+    var firstLine = true
+    var result = ""
+    for (nbToFind in nbToFindBatches) {
+        if (!firstLine) {
+            result += "\n"
+        }
+        result += when {
+            nbToFind <= MIN -> ERROR_MIN
+            nbToFind > MAX -> ERROR_MAX
+            else -> computeFirstPrimeNumbers(nbToFind)
+        }
+        firstLine = false
+    }
+    return result
 }
 
 private fun computeFirstPrimeNumbers(nbToFind: Int): String {
