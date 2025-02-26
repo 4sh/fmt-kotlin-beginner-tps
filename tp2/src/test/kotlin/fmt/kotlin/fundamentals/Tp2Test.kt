@@ -20,6 +20,18 @@ class Tp2Test {
         }
 
         @Test
+        fun `should return 3 first and 5 first prime numbers`() {
+            val numbers = getFirstPrimeNumbers(3, 5)
+
+            expectThat(numbers).isEqualTo(
+                """
+                [2, 3, 5]
+                [2, 3, 5, 7, 11]
+                """.trimIndent()
+            )
+        }
+
+        @Test
         fun `should fail with 0`() {
             val error = getFirstPrimeNumbers(0)
             expectThat(error).isEqualTo("nbToFind must be > 0")
