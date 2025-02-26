@@ -68,4 +68,21 @@ class BottleTest {
             expectThat(s).isEqualTo("Bouteille de Yquem blanc de 2006")
         }
     }
+
+    @Nested
+    inner class MainSales {
+
+        @Test
+        fun `red bottle should be main sales`() {
+            val mainSales = Bottle("Coucheroy", 2005, RED).mainSales
+
+            expectThat(mainSales).isTrue()
+        }
+        @Test
+        fun `white bottle should be main sales`() {
+            val mainSales = Bottle("Yquem", 2006, WHITE).mainSales
+
+            expectThat(mainSales).isFalse()
+        }
+    }
 }
