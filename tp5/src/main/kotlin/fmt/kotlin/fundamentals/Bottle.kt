@@ -6,6 +6,8 @@ data class Bottle(
     val color: WineColor
 ) {
 
+    val mainSales = color.mainSales
+
     fun isEqualTo(bottle: Bottle) = this == bottle
 
     fun isSameInstance(bottle: Bottle) = this === bottle
@@ -13,9 +15,11 @@ data class Bottle(
     override fun toString() = "Bouteille de $name ${color.translate()} de $year"
 }
 
-enum class WineColor {
-    RED,
-    WHITE;
+enum class WineColor(
+    val mainSales: Boolean
+) {
+    RED(true),
+    WHITE(false);
 
     fun translate() = when (this) {
         RED -> "rouge"
