@@ -1,5 +1,8 @@
 package fmt.kotlin.fundamentals
 
+import fmt.kotlin.fundamentals.cellar.Cellar
+import fmt.kotlin.fundamentals.cellar.WineBarrel
+
 fun main() {
     val tooBigBarrel = WineBarrel(600)
 
