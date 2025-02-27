@@ -1,4 +1,4 @@
-package fmt.kotlin.fundamentals
+package fmt.kotlin.fundamentals.cellar
 
 class Cellar private constructor(
     ownerName: String,
