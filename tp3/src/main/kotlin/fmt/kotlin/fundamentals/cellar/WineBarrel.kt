@@ -1,10 +1,10 @@
-package fmt.kotlin.fundamentals
+package fmt.kotlin.fundamentals.cellar
 
 class WineBarrel private constructor(
     val capacityInLiters: Int = 225,
     private var wineAgeInMonths: Int
 ) {
-    fun age(monthsNumber: Int) {
+    private fun age(monthsNumber: Int) {
         wineAgeInMonths += monthsNumber
     }
 
@@ -21,7 +21,7 @@ class WineBarrel private constructor(
         }
     }
 
-    fun description(): String {
+    internal fun description(): String {
         return """
             Capacité en litres: $capacityInLiters
             Âge du vin : $wineAgeInMonths

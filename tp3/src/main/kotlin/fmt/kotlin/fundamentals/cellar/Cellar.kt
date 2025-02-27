@@ -1,4 +1,4 @@
-package fmt.kotlin.fundamentals
+package fmt.kotlin.fundamentals.cellar
 
 class Cellar private constructor(
     ownerName: String,
@@ -41,7 +41,7 @@ class Cellar private constructor(
             
         """.trimIndent()
 
-        for(wineBarrel in wineBarrels) {
+        for (wineBarrel in wineBarrels) {
             description += wineBarrel.description() + "\n"
         }
 
