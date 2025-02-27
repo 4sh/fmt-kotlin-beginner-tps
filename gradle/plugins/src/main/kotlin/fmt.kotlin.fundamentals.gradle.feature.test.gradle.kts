@@ -8,6 +8,7 @@ dependencies {
     testImplementation(libs.junit.engine)
     testImplementation(libs.junit.params)
     testImplementation(libs.strikt)
+    testImplementation(libs.mockk)
 }
 
 tasks.test {
@@ -27,6 +28,8 @@ powerAssert {
             "kotlin.test.assertFalse",
             "kotlin.test.assertEquals",
             "kotlin.test.assertNull",
+            "kotlin.test.assertSame",
+            "org.junit.jupiter.api.Assertions.assertEquals",
         )
     )
 }
