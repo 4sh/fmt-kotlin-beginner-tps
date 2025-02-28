@@ -8,18 +8,19 @@ import strikt.assertions.isEqualTo
 import strikt.assertions.isNotNull
 
 class CellarTest {
+    lateinit var cellar: Cellar
 
-    //Écrire le Étant donné que dans un beforeEach pour ne pas dupliquer le code
-
-    @Test
-    fun `Should take first matching bottle Junit`() {
-        //Étant donné que
-        val cellar = Cellar(5)
+    @BeforeEach
+    fun initCellar() {
+        cellar = Cellar(5)
 
         cellar.addBottle(Bottle("Haut-Brion", 1997, WineColor.RED))
         cellar.addBottle(Bottle("Margaux", 2012, WineColor.WHITE))
         cellar.addBottle(Bottle("Pétrus", 2008, WineColor.RED))
+    }
 
+    @Test
+    fun `Should take first matching bottle Junit`() {
         //Lorsque
         val bottle = cellar.takeSpecificBottle("Margaux", 2012, WineColor.WHITE)
 
@@ -29,5 +30,16 @@ class CellarTest {
         assertEquals(WineColor.WHITE, bottle?.color)
     }
 
-    //Écrire la même fonction que celle en Junit mais cette fois avec les assertions de Strikt
+    @Test
+    fun `Should take first matching bottle Strikt`() {
+        //Lorsque
+        val bottle = cellar.takeSpecificBottle("Margaux", 2012, WineColor.WHITE)
+
+        //Alors
+        expectThat(bottle).isNotNull().and {
+            get { name }.isEqualTo("Margaux")
+            get { year }.isEqualTo(2012)
+            get { color }.isEqualTo(WineColor.WHITE)
+        }
+    }
 }
