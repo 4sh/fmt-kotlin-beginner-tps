@@ -9,11 +9,15 @@ import org.junit.jupiter.params.provider.ArgumentsSource
 import java.util.stream.Stream
 
 class WineStoreTest {
+    private val wineStore = WineStore()
 
-    //Créer un test paramétré qui prend en argument Bottle, et Price (Int)
-    //Et qui vérifie que le prix calculé de la bouteille correspond au prix donné en paramètre
+    @ParameterizedTest
+    @ArgumentsSource(WineStoreArgumentsProvider::class)
+    fun `Should compute bottle value`(bottle: Bottle, expectedPrice: Price) {
+        val price = wineStore.bottlePrice(bottle)
 
-
+        assertEquals(expectedPrice, price)
+    }
 
     class WineStoreArgumentsProvider : ArgumentsProvider {
         override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> = Stream.of(
