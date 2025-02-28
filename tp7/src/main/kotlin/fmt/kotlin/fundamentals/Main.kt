@@ -1,8 +1,5 @@
 package fmt.kotlin.fundamentals
 
-val printWineBottle: () -> Unit = { println("Wine bottle") }
-val shortlyDescribeWineBottleUsingExplicitAttributeName: (WineBottle) -> Unit = { wineBottle -> println(wineBottle.wineType)}
-val shortlyDescribeWineBottleUsingIt: (WineBottle) -> Unit = {  println(it.wineType)}
 val buildWineBottleDescription: (WineBottle) -> String = {
     val bottleType = when(it.wineType) {
         WineType.RED -> "rouge"
@@ -14,14 +11,24 @@ val buildWineBottleDescription: (WineBottle) -> String = {
 }
 
 fun main() {
-    printWineBottle()
-    val wineBottle = WineBottle(
-        WineType.RED,
-        2016,
-        "Isabelle",
-        1.0
-    )
-    shortlyDescribeWineBottleUsingExplicitAttributeName(wineBottle)
-    shortlyDescribeWineBottleUsingIt(wineBottle)
-    println(buildWineBottleDescription(wineBottle))
+    val cellar = Cellar(listOf(
+        WineBottle(
+            WineType.RED,
+            2016,
+            "Isabelle",
+            1.0
+        ),
+        WineBottle(
+            WineType.WHITE,
+            2011,
+            "Melon de Bourgogne",
+            0.75
+        ),
+        WineBottle(
+            WineType.ROSE,
+            2018,
+            "Sangiovese",
+            2.0
+        ),
+    ))
 }
