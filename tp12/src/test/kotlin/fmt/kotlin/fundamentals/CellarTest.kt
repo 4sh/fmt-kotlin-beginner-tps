@@ -14,9 +14,9 @@ class CellarTest {
         //Etant donné que
         val cellar = Cellar(5)
 
-        val bottleMock = //TODO
+        val bottleMock = mockk<Bottle>()
 
-        //TODO Mocker l'appel de Bottle.description pour retourner Bottle à chaque fois
+        every { bottleMock.description() } returns "Bottle"
 
         cellar.addBottle(bottleMock)
         cellar.addBottle(bottleMock)
@@ -32,10 +32,17 @@ class CellarTest {
     @Test
     fun `Should compute cellar value`() {
         //Etant donné que
-        val wineStoreMock = //TODO
-        val cellar = Cellar(5)
+        val wineStoreMock = mockk<WineStore>()
+        val cellar = Cellar(5, wineStoreMock)
 
-        //TODO Mocker l'appel de WineStoreMock.bottlePrice en capturant le paramètre
+        val captureSlot = slot<Bottle>()
+        every { wineStoreMock.bottlePrice(capture(captureSlot)) } answers {
+            if (captureSlot.captured.color == WineColor.WHITE) {
+                10
+            } else {
+                20
+            }
+        }
 
         cellar.addBottle(Bottle("Haut-Brion", 1997, WineColor.RED))
         cellar.addBottle(Bottle("Margaux", 2012, WineColor.WHITE))
@@ -46,6 +53,6 @@ class CellarTest {
 
         //Alors
         assertEquals(50, value)
-        //TODO Vérifier que le prix a été calculé trois fois (1 fois par bouteille)
+        verify(exactly = 3) { wineStoreMock.bottlePrice(any()) }
     }
 }
