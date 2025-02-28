@@ -1,16 +1,24 @@
 package fmt.kotlin.fundamentals
 
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.extension.ExtensionContext
+import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.ArgumentsProvider
+import org.junit.jupiter.params.provider.ArgumentsSource
 import org.junit.jupiter.params.support.ParameterDeclarations
 import java.util.stream.Stream
 
 class WineStoreTest {
+    private val wineStore = WineStore()
 
-    //Créer un test paramétré qui prend en argument Bottle, et Price (Int)
-    //Et qui vérifie que le prix calculé de la bouteille correspond au prix donné en paramètre
+    @ParameterizedTest
+    @ArgumentsSource(WineStoreArgumentsProvider::class)
+    fun `Should compute bottle value`(bottle: Bottle, expectedPrice: Price) {
+        val price = wineStore.bottlePrice(bottle)
 
+        assertEquals(expectedPrice, price)
+    }
 
     class WineStoreArgumentsProvider : ArgumentsProvider {
         override fun provideArguments(
