@@ -1,58 +1,33 @@
 package fmt.kotlin.fundamentals
 
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.slot
-import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import strikt.api.expectThat
+import strikt.assertions.isEqualTo
+import strikt.assertions.isNotNull
 
 class CellarTest {
 
+    //Écrire le Étant donné que dans un beforeEach pour ne pas dupliquer le code
+
     @Test
-    fun `Should describe bottles`() {
-        //Etant donné que
+    fun `Should take first matching bottle Junit`() {
+        //Étant donné que
         val cellar = Cellar(5)
-
-        val bottleMock = mockk<Bottle>()
-
-        every { bottleMock.description() } returns "Bottle"
-
-        cellar.addBottle(bottleMock)
-        cellar.addBottle(bottleMock)
-        cellar.addBottle(bottleMock)
-
-        //Lorsque
-        val description = cellar.describeBottles()
-
-        //Alors
-        assertEquals("Bottle\nBottle\nBottle", description)
-    }
-
-    @Test
-    fun `Should compute cellar value`() {
-        //Etant donné que
-        val wineStoreMock = mockk<WineStore>()
-        val cellar = Cellar(5, wineStoreMock)
-
-        val captureSlot = slot<Bottle>()
-        every { wineStoreMock.bottlePrice(capture(captureSlot)) } answers {
-            if (captureSlot.captured.color == WineColor.WHITE) {
-                10
-            } else {
-                20
-            }
-        }
 
         cellar.addBottle(Bottle("Haut-Brion", 1997, WineColor.RED))
         cellar.addBottle(Bottle("Margaux", 2012, WineColor.WHITE))
         cellar.addBottle(Bottle("Pétrus", 2008, WineColor.RED))
 
         //Lorsque
-        val value = cellar.cellarValue()
+        val bottle = cellar.takeSpecificBottle("Margaux", 2012, WineColor.WHITE)
 
         //Alors
-        assertEquals(50, value)
-        verify(exactly = 3) { wineStoreMock.bottlePrice(any()) }
+        assertEquals("Margaux", bottle?.name)
+        assertEquals(2012, bottle?.year)
+        assertEquals(WineColor.WHITE, bottle?.color)
     }
+
+    //Écrire la même fonction que celle en Junit mais cette fois avec les assertions de Strikt
 }
