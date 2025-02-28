@@ -17,7 +17,7 @@ class CellarTest {
         }
 
         //Alors
-        //S'assurer que la cave contient le bon nombre de bouteilles
+        assertEquals(n, cellar.bottleCount)
     }
 
     @Test
@@ -32,7 +32,7 @@ class CellarTest {
         }
 
         //Alors
-        //S'assurer que la cave contient autant de bouteilles que sa taille
+        assertEquals(cellar.size, cellar.bottleCount)
     }
 
     @Test
@@ -49,7 +49,7 @@ class CellarTest {
         val bottle = cellar.takeColoredBottle(WineColor.WHITE)
 
         //Alors
-        //S'assurer qu'il ne reste que deux bouteilles dans la cave
-        //S'assurer que la bouteille récupérée est la même que celle qu'il fallait récupérer
+        assertEquals(2, cellar.bottleCount)
+        assertSame(bottle, bottleToRetrieve)
     }
 }
