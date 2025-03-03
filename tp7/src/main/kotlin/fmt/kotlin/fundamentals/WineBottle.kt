@@ -6,6 +6,9 @@ data class WineBottle(
     val grapeVariety: String,
     val volumeInLiters: Double
 ) {
+    fun describe(): String {
+        return "Vin ${buildWineTypeDescription(wineType)} de l'année $year"
+    }
 }
 
 enum class WineType {
