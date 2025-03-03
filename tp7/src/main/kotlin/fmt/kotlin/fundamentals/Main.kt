@@ -1,13 +1,7 @@
 package fmt.kotlin.fundamentals
 
-val buildWineBottleDescription: (WineBottle) -> String = {
-    val bottleType = when(it.wineType) {
-        WineType.RED -> "rouge"
-        WineType.WHITE -> "blanc"
-        WineType.ROSE -> "rosé"
-    }
-
-    "Vin $bottleType de l'année ${it.year}"
+val buildWineBottleShortDescription: (WineBottle) -> String = {
+    "Vin ${buildWineTypeDescription(it.wineType)} de l'année ${it.year}"
 }
 
 fun main() {
@@ -31,4 +25,23 @@ fun main() {
             2.0
         ),
     ))
+
+    cellar.describeBottles(buildWineBottleShortDescription)
+
+    cellar.describeBottles({
+        "Vin ${buildWineTypeDescription(it.wineType)} de l'année ${it.year}, " +
+                "cépage ${it.grapeVariety}, bouteille de ${it.volumeInLiters} litres"
+    })
+    cellar.describeBottles {
+        "Vin ${buildWineTypeDescription(it.wineType)} de l'année ${it.year}, " +
+                "cépage ${it.grapeVariety}, bouteille de ${it.volumeInLiters} litres"
+    }
+    cellar.describeBottles(WineBottle::describe)
 }
+
+fun buildWineTypeDescription(wineType: WineType): String =
+    when (wineType) {
+        WineType.RED -> "rouge"
+        WineType.WHITE -> "blanc"
+        WineType.ROSE -> "rosé"
+    }
