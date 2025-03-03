@@ -1,8 +1,5 @@
 package fmt.kotlin.fundamentals
 
-val buildWineBottleShortDescription: (WineBottle) -> String = {
-    "Vin ${buildWineTypeDescription(it.wineType)} de l'année ${it.year}"
-}
 
 fun main() {
     val cellar = Cellar(listOf(
@@ -26,17 +23,7 @@ fun main() {
         ),
     ))
 
-    cellar.describeBottles(buildWineBottleShortDescription)
 
-    cellar.describeBottles({
-        "Vin ${buildWineTypeDescription(it.wineType)} de l'année ${it.year}, " +
-                "cépage ${it.grapeVariety}, bouteille de ${it.volumeInLiters} litres"
-    })
-    cellar.describeBottles {
-        "Vin ${buildWineTypeDescription(it.wineType)} de l'année ${it.year}, " +
-                "cépage ${it.grapeVariety}, bouteille de ${it.volumeInLiters} litres"
-    }
-    cellar.describeBottles(WineBottle::describe)
 }
 
 fun buildWineTypeDescription(wineType: WineType): String =
