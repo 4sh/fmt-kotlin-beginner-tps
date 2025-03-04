@@ -21,7 +21,8 @@ class CellarTest {
                 mutableListOf(
                     Bottle("Coucheroy", 2005, RED),
                     Bottle("Pedesclaux", 2009, RED)
-                )
+                ),
+                mutableListOf()
             ).describeBottles()
 
             expectThat(description).isEqualTo(
@@ -39,7 +40,8 @@ class CellarTest {
                     Bottle("Coucheroy", 2005, RED),
                     Bottle("Camarsac", 2018, WHITE),
                     Bottle("Pedesclaux", 2009, RED),
-                )
+                ),
+                mutableListOf()
             ).describeRedBottles()
 
             expectThat(description).isEqualTo(
@@ -58,7 +60,7 @@ class CellarTest {
         fun `should add bottle to cellar as owner`() {
             Session.currentUser = owner
 
-            val cellar = Cellar(mutableListOf<Bottle>())
+            val cellar = Cellar(mutableListOf<Bottle>(), mutableListOf())
 
             cellar.addBottle(Bottle("Coucheroy", 2005, RED))
 
@@ -69,10 +71,53 @@ class CellarTest {
         fun `should not add bottle to cellar as buyer`() {
             Session.currentUser = buyer
 
-            val cellar = Cellar(mutableListOf<Bottle>())
+            val cellar = Cellar(mutableListOf<Bottle>(), mutableListOf())
 
             expectThrows<UnauthorizedException> {
                 cellar.addBottle(Bottle("Coucheroy", 2005, RED))
+            }
+        }
+    }
+
+    @Nested
+    inner class Fill {
+
+        @Test
+        fun `should fill cellar`() {
+            Session.currentUser = owner
+
+            val initialCellar = Cellar(
+                mutableListOf(Bottle("Coucheroy", 2005, RED)),
+                mutableListOf(Tank(20000))
+            )
+
+            val cellar = Cellar.fillCellar(
+                initialCellar,
+                listOf(
+                    Bottle("Camarsac", 2018, WHITE),
+                    Bottle("Pedesclaux", 2009, RED)
+                ),
+                listOf(
+                    Tank(30000),
+                    Tank(35000)
+                )
+            )
+
+            expectThat(cellar) {
+                get { bottles }.isEqualTo(
+                    mutableListOf(
+                        Bottle("Coucheroy", 2005, RED),
+                        Bottle("Camarsac", 2018, WHITE),
+                        Bottle("Pedesclaux", 2009, RED)
+                    )
+                )
+                get { tanks }.isEqualTo(
+                    mutableListOf(
+                        Tank(20000),
+                        Tank(30000),
+                        Tank(35000)
+                    )
+                )
             }
         }
     }
