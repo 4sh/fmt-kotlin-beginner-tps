@@ -5,7 +5,8 @@ import fmt.kotlin.fundamentals.UserRole.OWNER
 import fmt.kotlin.fundamentals.WineColor.RED
 
 data class Cellar(
-    val bottles: MutableList<Bottle>
+    val bottles: MutableList<Bottle>,
+    val tanks: MutableList<Tank>
 ) {
     fun describeBottles() = bottles.joinToString("\n") { bottle ->
         bottle.run {
@@ -29,5 +30,13 @@ data class Cellar(
                 BUYER -> throw UnauthorizedException(login)
             }
         }
+    }
+
+    fun addTank(tank: Tank) {
+        tanks.add(tank)
+    }
+
+    companion object {
+        fun fillCellar(cellar: Cellar, bottles: List<Bottle>, tanks: List<Tank>): Cellar = TODO()
     }
 }
