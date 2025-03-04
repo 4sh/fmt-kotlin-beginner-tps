@@ -22,6 +22,11 @@ data class Cellar(
     }
 
     fun addBottle(bottle: Bottle) {
-        bottles.add(bottle)
+        with(Session.currentUser) {
+            when (role) {
+                OWNER -> bottles.add(bottle)
+                BUYER -> throw UnauthorizedException(login)
+            }
+        }
     }
 }
