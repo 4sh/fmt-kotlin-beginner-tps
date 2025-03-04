@@ -25,6 +25,7 @@ data class Cellar(
         with(Session.currentUser) {
             when (role) {
                 OWNER -> bottles.add(bottle)
+                    .also { println(bottle) }
                 BUYER -> throw UnauthorizedException(login)
             }
         }
