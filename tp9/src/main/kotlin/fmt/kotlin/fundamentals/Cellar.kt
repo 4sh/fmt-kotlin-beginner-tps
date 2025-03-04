@@ -1,9 +1,11 @@
 package fmt.kotlin.fundamentals
 
+import fmt.kotlin.fundamentals.UserRole.BUYER
+import fmt.kotlin.fundamentals.UserRole.OWNER
 import fmt.kotlin.fundamentals.WineColor.RED
 
 data class Cellar(
-    val bottles: List<Bottle>
+    val bottles: MutableList<Bottle>
 ) {
     fun describeBottles() = bottles.joinToString("\n") { bottle ->
         bottle.run {
@@ -17,5 +19,9 @@ data class Cellar(
                 "Bouteille de ${it.name} de ${it.year}"
             }
             ?: "Bouteille de blanc"
+    }
+
+    fun addBottle(bottle: Bottle) {
+        bottles.add(bottle)
     }
 }
