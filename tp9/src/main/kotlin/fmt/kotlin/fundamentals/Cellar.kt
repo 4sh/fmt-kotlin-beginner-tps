@@ -37,6 +37,10 @@ data class Cellar(
     }
 
     companion object {
-        fun fillCellar(cellar: Cellar, bottles: List<Bottle>, tanks: List<Tank>): Cellar = TODO()
+        fun fillCellar(cellar: Cellar, bottles: List<Bottle>, tanks: List<Tank>): Cellar = cellar
+            .apply {
+                bottles.forEach { addBottle(it) }
+                tanks.forEach { addTank(it) }
+            }
     }
 }
