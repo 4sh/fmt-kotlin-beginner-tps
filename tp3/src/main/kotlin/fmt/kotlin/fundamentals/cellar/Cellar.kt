@@ -27,7 +27,7 @@ class Cellar private constructor(
     }
 
     fun age(monthsNumber: Int) {
-        for(wineBarrel in wineBarrels) {
+        for (wineBarrel in wineBarrels) {
 //            wineBarrel.age(monthsNumber)
         }
     }
@@ -41,7 +41,7 @@ class Cellar private constructor(
             
         """.trimIndent()
 
-        for(wineBarrel in wineBarrels) {
+        for (wineBarrel in wineBarrels) {
             description += wineBarrel.description() + "\n"
         }
 

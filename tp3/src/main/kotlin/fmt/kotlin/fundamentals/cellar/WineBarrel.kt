@@ -2,7 +2,7 @@ package fmt.kotlin.fundamentals.cellar
 
 class WineBarrel private constructor(
     val capacityInLiters: Int = 225,
-    private var wineAgeInMonths: Int
+    private var wineAgeInMonths: Int,
 ) {
     private fun age(monthsNumber: Int) {
         wineAgeInMonths += monthsNumber
@@ -10,7 +10,7 @@ class WineBarrel private constructor(
 
     constructor(capacityInLiters: Int = 225) : this(capacityInLiters, 0)
 
-    constructor(capacityInLiters: Int  = 225, wineBarrel: WineBarrel) : this(capacityInLiters, wineBarrel.wineAgeInMonths)
+    constructor(capacityInLiters: Int = 225, wineBarrel: WineBarrel) : this(capacityInLiters, wineBarrel.wineAgeInMonths)
 
     init {
         if (capacityInLiters > 500) {
