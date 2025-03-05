@@ -3,11 +3,11 @@ package fmt.kotlin.fundamentals
 var x = 0
 
 fun incrementXAndReturnOldValue(): Int {
-    return x++;
+    return x++
 }
 
 fun incrementXAndReturnNewValue(): Int {
-    return ++x;
+    return ++x
 }
 
 fun sumZeroPointFive(): Float {
@@ -30,7 +30,7 @@ fun buildRangeOpenEnded(): IntRange {
  * n Number of bottles. Always more than 2.
  */
 fun describeNbBottles(): String {
-    return "There are $x bottles";
+    return "There are $x bottles"
 }
 
 var totalBottles = 0
